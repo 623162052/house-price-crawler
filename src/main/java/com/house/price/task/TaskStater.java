@@ -38,6 +38,7 @@ public class TaskStater {
 
             // 0、查询需要拉去数据地市
             List<CityEntity> finalCityList = configDataService.getProvAndCityConfig();
+            LOG.info("「地市」finalCityList: " + finalCityList);
 
             // 1、查询区县房价信息
             for (CityEntity cityEntity : finalCityList) {
@@ -58,17 +59,12 @@ public class TaskStater {
                     // 获取区县编码、最大最小经纬度
                     Matrix countryMatrix = Utils.getMaxBorder(countryPriceInfoItem);
 
-//                    // 判断是否爬取当前区县
-////                    if(!RegionData.countyList.contains(countryId)){
-////                        continue;
-////                    }
-
                     List<PriceInfo> streetPriceInfoList = housePriceService.getStreetPriceList(cityId, countryId, countryMatrix);
                     if(streetPriceInfoList != null){
                         for (PriceInfo streetPriceInfoSubItem : streetPriceInfoList) {
                             streetPriceInfoSubItem.setExecuteDate(executeDate);
                             streetPriceInfoSubItem.setType(StaticValue.TYPE_STREET);
-                            LOG.info("「街道」" + streetPriceInfoSubItem.getName() + " - " + streetPriceInfoSubItem);
+                            LOG.info("「街道」" + countryPriceInfoItem.getName() + " - " + streetPriceInfoSubItem.getName() + " - " + streetPriceInfoSubItem);
                         }
                         housePriceService.addPriceInfo(streetPriceInfoList);
                     }
@@ -77,18 +73,15 @@ public class TaskStater {
                     for (PriceInfo streetPriceInfoSubItem : streetPriceInfoList) {
                         Thread.sleep(1);
 
-//                        // TODO: 临时代码
-//                        if(!StringUtils.equals(streetPriceInfoSubItem.getName(), "将军大道")){
-//                            continue;
-//                        }
                         Matrix communityMatrix = Utils.getMaxBorder(streetPriceInfoSubItem);
                         List<PriceInfo> communityPriceInfoList = housePriceService.getCommunityPriceList(cityId, "","", communityMatrix);
 
                         if(communityPriceInfoList != null){
+                            LOG.info("「小区」 " + countryPriceInfoItem.getName() + " - " + streetPriceInfoSubItem.getName() + " - 数量: " + communityPriceInfoList.size());
                             for (PriceInfo communityPriceInfoSubItem : communityPriceInfoList) {
                                 communityPriceInfoSubItem.setExecuteDate(executeDate);
                                 communityPriceInfoSubItem.setType(StaticValue.TYPE_COMMUNITY);
-                                LOG.info("「小区」" + communityPriceInfoSubItem.getName() + " - " + communityPriceInfoSubItem);
+//                                LOG.info("「小区」" + communityPriceInfoSubItem.getName() + " - " + communityPriceInfoSubItem);
 
                             }
                             housePriceService.addPriceInfo(communityPriceInfoList);

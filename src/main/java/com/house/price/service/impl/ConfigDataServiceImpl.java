@@ -62,7 +62,6 @@ public class ConfigDataServiceImpl implements ConfigDataService {
                     if(!RegionData.citySet.contains(cityEntry.getKey())){
                         continue;
                     }
-                    String cityId = cityEntry.getKey();
                     HashMap cityInfoMap = cityEntry.getValue();
                     CityEntity cityEntity = JSON.parseObject(JSON.toJSONString(cityInfoMap), CityEntity.class);
                     finalCityList.add(cityEntity);
