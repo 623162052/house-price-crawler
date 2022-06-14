@@ -29,8 +29,9 @@ public class TaskStater {
     @Autowired
     ConfigDataService configDataService;
 
-    @PostConstruct
-    @Async
+    // TODO: 临时注释
+//    @PostConstruct
+//    @Async
     void startTask() {
 
         try {
@@ -48,6 +49,7 @@ public class TaskStater {
                     for (PriceInfo countryPriceInfoItem : countryPriceInfoList) {
                         countryPriceInfoItem.setExecuteDate(executeDate);
                         countryPriceInfoItem.setType(StaticValue.TYPE_COUNTRY);
+                        countryPriceInfoItem.setpId(cityId);
                         LOG.info("「区县」" + countryPriceInfoItem.getName() + " - " + countryPriceInfoItem);
                     }
                     housePriceService.addPriceInfo(countryPriceInfoList);
@@ -64,6 +66,7 @@ public class TaskStater {
                         for (PriceInfo streetPriceInfoSubItem : streetPriceInfoList) {
                             streetPriceInfoSubItem.setExecuteDate(executeDate);
                             streetPriceInfoSubItem.setType(StaticValue.TYPE_STREET);
+                            streetPriceInfoSubItem.setpId(countryId);
                             LOG.info("「街道」" + countryPriceInfoItem.getName() + " - " + streetPriceInfoSubItem.getName() + " - " + streetPriceInfoSubItem);
                         }
                         housePriceService.addPriceInfo(streetPriceInfoList);
@@ -71,8 +74,9 @@ public class TaskStater {
 
                     // 3、查询社区房价
                     for (PriceInfo streetPriceInfoSubItem : streetPriceInfoList) {
-                        Thread.sleep(1);
+//                        Thread.sleep(10);
 
+                        String streetId = streetPriceInfoSubItem.getId();
                         Matrix communityMatrix = Utils.getMaxBorder(streetPriceInfoSubItem);
                         List<PriceInfo> communityPriceInfoList = housePriceService.getCommunityPriceList(cityId, "","", communityMatrix);
 
@@ -81,6 +85,7 @@ public class TaskStater {
                             for (PriceInfo communityPriceInfoSubItem : communityPriceInfoList) {
                                 communityPriceInfoSubItem.setExecuteDate(executeDate);
                                 communityPriceInfoSubItem.setType(StaticValue.TYPE_COMMUNITY);
+                                communityPriceInfoSubItem.setpId(streetId);
 //                                LOG.info("「小区」" + communityPriceInfoSubItem.getName() + " - " + communityPriceInfoSubItem);
 
                             }

@@ -13,7 +13,8 @@ public class PriceInfo {
     private String entityType;  //: ""
     private String fullSpell;   //地区 : "d320104"
     private String icon;    // : ""
-    private String id;  //: 320104
+    private String pId;
+    private String id;  //: 地区编码：320104
     private String imageType;   //: 30002
     private String latitude;    // 纬度
     private String longitude;   // 经度
@@ -94,6 +95,14 @@ public class PriceInfo {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getpId() {
+        return pId;
+    }
+
+    public void setpId(String pId) {
+        this.pId = pId;
     }
 
     public String getId() {
@@ -195,7 +204,8 @@ public class PriceInfo {
     @Override
     public String toString() {
         return "PriceInfo{" +
-                "type='" + type + '\'' +
+                "executeDate='" + executeDate + '\'' +
+                ", type='" + type + '\'' +
 //                ", border='" + border + '\'' +
                 ", bubbleDesc='" + bubbleDesc + '\'' +
                 ", count='" + count + '\'' +
@@ -205,6 +215,7 @@ public class PriceInfo {
                 ", entityType='" + entityType + '\'' +
                 ", fullSpell='" + fullSpell + '\'' +
                 ", icon='" + icon + '\'' +
+                ", pId='" + pId + '\'' +
                 ", id='" + id + '\'' +
                 ", imageType='" + imageType + '\'' +
                 ", latitude='" + latitude + '\'' +

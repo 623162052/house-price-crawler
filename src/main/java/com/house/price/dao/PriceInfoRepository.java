@@ -8,6 +8,10 @@ public interface PriceInfoRepository {
 
     Iterable<PriceInfo> findAll();
 
+    List<PriceInfo> findAll(String sql);
+
+    List<PriceInfo> findAll(String sql, Object[] param);
+
     PriceInfo findOne(String id);
 
     PriceInfo save(PriceInfo Book);

@@ -23,7 +23,16 @@ public class PriceInfoRepositoryImpl implements PriceInfoRepository {
     public Iterable<PriceInfo> findAll() {
         String sql = "select * from t_price_info";
         return jdbcTemplate.query(sql, rowMapper);
+    }
 
+    @Override
+    public List<PriceInfo> findAll(String sql) {
+        return jdbcTemplate.query(sql, rowMapper);
+    }
+
+    @Override
+    public List<PriceInfo> findAll(String sql, Object[] param) {
+        return jdbcTemplate.query(sql, param, rowMapper);
     }
 
     @Override

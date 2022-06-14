@@ -1,3 +1,4 @@
+-- 废弃
 
 CREATE TABLE `t_price_info` (
   `serial_id` int NOT NULL AUTO_INCREMENT COMMENT '流水号',

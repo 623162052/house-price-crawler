@@ -31,10 +31,10 @@ public class PriceInfoDaoImpl implements PriceInfoDao {
     @Override
     public boolean addPriceInfo(PriceInfo priceInfo) throws Exception {
 
-        String sql = "insert into t_price_info(execute_date, price_type, id, name, full_spell, longitude, latitude, price, price_unit, price_str, descx, image_type, icon, " +
-                "count, count_unit, count_str, entity_id, entity_type, border, bubble_desc, selected) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into t_price_info(execute_date, price_type, pid, id, name, full_spell, longitude, latitude, price, price_unit, price_str, descx, image_type, icon, " +
+                "count, count_unit, count_str, entity_id, entity_type, border, bubble_desc, selected) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int result = jdbcTemplate.update(sql, new Object[]{
-                priceInfo.getExecuteDate(), priceInfo.getType(), priceInfo.getId(), priceInfo.getName(),
+                priceInfo.getExecuteDate(), priceInfo.getType(), priceInfo.getpId(), priceInfo.getId(), priceInfo.getName(),
                 priceInfo.getFullSpell(), priceInfo.getLongitude(), priceInfo.getLatitude(), priceInfo.getPrice(),
                 priceInfo.getPriceUnit(), priceInfo.getPriceStr(), priceInfo.getDesc(), priceInfo.getImageType(),
                 priceInfo.getIcon(), priceInfo.getCount(), priceInfo.getCountUnit(), priceInfo.getCountStr(),
@@ -51,31 +51,33 @@ public class PriceInfoDaoImpl implements PriceInfoDao {
      */
     @Override
     public boolean addPriceInfo(List<PriceInfo> priceInfoList) throws Exception {
-        String sql = "insert into t_price_info(execute_date, price_type, id, name, full_spell, longitude, latitude, price, price_unit, price_str, descx, image_type, icon, " +
-                "count, count_unit, count_str, entity_id, entity_type, border, bubble_desc, selected) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into t_price_info(execute_date, price_type, pid, id, name, full_spell, longitude, latitude, price, price_unit, price_str, descx, image_type, icon, " +
+                "count, count_unit, count_str, entity_id, entity_type, border, bubble_desc, selected) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 ps.setString(1, priceInfoList.get(i).getExecuteDate());
                 ps.setString(2, priceInfoList.get(i).getType());
-                ps.setString(3, priceInfoList.get(i).getId());
-                ps.setString(4, priceInfoList.get(i).getName());
-                ps.setString(5, priceInfoList.get(i).getFullSpell());
-                ps.setString(6, priceInfoList.get(i).getLongitude());
-                ps.setString(7, priceInfoList.get(i).getLatitude());
-                ps.setString(8, priceInfoList.get(i).getPrice());
-                ps.setString(9, priceInfoList.get(i).getPriceUnit());
-                ps.setString(10, priceInfoList.get(i).getPriceStr());
-                ps.setString(11, priceInfoList.get(i).getDesc());
-                ps.setString(12, priceInfoList.get(i).getImageType());
-                ps.setString(13, priceInfoList.get(i).getIcon());
-                ps.setString(14, priceInfoList.get(i).getCount());
-                ps.setString(15, priceInfoList.get(i).getCountUnit());
-                ps.setString(16, priceInfoList.get(i).getCountStr());
-                ps.setString(17, priceInfoList.get(i).getEntityId());
-                ps.setString(18, priceInfoList.get(i).getEntityType());
-                ps.setString(19, priceInfoList.get(i).getBorder());
-                ps.setString(20, priceInfoList.get(i).getBubbleDesc());
-                ps.setString(21, priceInfoList.get(i).getSelected());
+                ps.setString(3, priceInfoList.get(i).getpId());
+                ps.setString(4, priceInfoList.get(i).getId());
+                ps.setString(5, priceInfoList.get(i).getName());
+                ps.setString(6, priceInfoList.get(i).getFullSpell());
+                ps.setString(7, priceInfoList.get(i).getLongitude());
+                ps.setString(8, priceInfoList.get(i).getLatitude());
+                ps.setString(9, priceInfoList.get(i).getPrice());
+                ps.setString(10, priceInfoList.get(i).getPriceUnit());
+                ps.setString(11, priceInfoList.get(i).getPriceStr());
+                ps.setString(12, priceInfoList.get(i).getDesc());
+                ps.setString(13, priceInfoList.get(i).getImageType());
+                ps.setString(14, priceInfoList.get(i).getIcon());
+                ps.setString(15, priceInfoList.get(i).getCount());
+                ps.setString(16, priceInfoList.get(i).getCountUnit());
+                ps.setString(17, priceInfoList.get(i).getCountStr());
+                ps.setString(18, priceInfoList.get(i).getEntityId());
+                ps.setString(19, priceInfoList.get(i).getEntityType());
+                ps.setString(20, priceInfoList.get(i).getBorder());
+                ps.setString(21, priceInfoList.get(i).getBubbleDesc());
+                ps.setString(22, priceInfoList.get(i).getSelected());
+
 
             }
 
